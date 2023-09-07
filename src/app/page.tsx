@@ -50,7 +50,7 @@ export default function Home() {
 
 			<div className="flex flex-col gap-2 mt-2">
 				{prompts?.map((prompt) => {
-					return <div>{prompt.prompt}</div>;
+					return <div key={prompt._id}>{prompt.prompt}</div>;
 				})}
 			</div>
 		</div>
