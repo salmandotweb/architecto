@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useMutation, useQuery } from "convex/react";
+import { useMutation } from "convex/react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { api } from "../../convex/_generated/api";
 
@@ -11,9 +11,7 @@ type Inputs = {
 };
 
 export default function Home() {
-	const generateBluePrint = useMutation(api.prompt.generateBluePrint);
-
-	const prompts = useQuery(api.prompt.getPrompts);
+	const generateBluePrint = useMutation(api.blueprint.generateBluePrint);
 
 	const {
 		register,
@@ -47,12 +45,6 @@ export default function Home() {
 					</span>
 				)}
 			</form>
-
-			<div className="flex flex-col gap-2 mt-2">
-				{prompts?.map((prompt) => {
-					return <div key={prompt._id}>{prompt.prompt}</div>;
-				})}
-			</div>
 		</div>
 	);
 }

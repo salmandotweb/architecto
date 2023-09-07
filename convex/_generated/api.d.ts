@@ -14,7 +14,7 @@ import type {
   FilterApi,
   FunctionReference,
 } from "convex/server";
-import type * as prompt from "../prompt";
+import type * as blueprint from "../blueprint";
 
 /**
  * A utility for referencing Convex functions in your app's API.
@@ -25,7 +25,7 @@ import type * as prompt from "../prompt";
  * ```
  */
 declare const fullApi: ApiFromModules<{
-  prompt: typeof prompt;
+  blueprint: typeof blueprint;
 }>;
 export declare const api: FilterApi<
   typeof fullApi,
