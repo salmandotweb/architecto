@@ -2,9 +2,15 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useMutation } from "convex/react";
+import {
+	AuthLoading,
+	Authenticated,
+	Unauthenticated,
+	useMutation,
+} from "convex/react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { api } from "../../convex/_generated/api";
+import { SignInButton, SignOutButton } from "@clerk/clerk-react";
 
 type Inputs = {
 	prompt: string;
@@ -30,21 +36,27 @@ export default function Home() {
 
 	return (
 		<div className="flex flex-col w-full items-center justify-center min-h-screen">
-			<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
-				<Input
-					{...register("prompt", {
-						required: true,
-					})}
-				/>
+			<Authenticated>
+				<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
+					<Input
+						{...register("prompt", {
+							required: true,
+						})}
+					/>
+					<Button type="submit">Submit</Button>
+					{errors.prompt && (
+						<span className="text-[#000] text-[12px]">
+							{errors.prompt.type === "required" && "Prompt is required"}
+						</span>
+					)}
+				</form>
 
-				<Button type="submit">Submit</Button>
-
-				{errors.prompt && (
-					<span className="text-[#000] text-[12px]">
-						{errors.prompt.type === "required" && "Prompt is required"}
-					</span>
-				)}
-			</form>
+				<SignOutButton />
+			</Authenticated>
+			<Unauthenticated>
+				<SignInButton mode="modal" />
+			</Unauthenticated>
+			<AuthLoading>Still loading</AuthLoading>
 		</div>
 	);
 }
