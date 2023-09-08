@@ -10,7 +10,7 @@ export const generate = internalAction(
         { runMutation },
         {
             bluePrintId
-        }: { bluePrintId: Id<"blueprints"> }
+        }: { bluePrintId: Id<"blueprints">; prompt: string }
     ) => {
         if (!process.env.REPLICATE_API_TOKEN) {
             throw new Error(
@@ -26,14 +26,14 @@ export const generate = internalAction(
             "stability-ai/sdxl:da77bc59ee60423279fd632efb4795ab731d9e3ca9705ef3341091fb989b7eaf",
             {
                 input: {
-                    prompt: "An astronaut riding a rainbow unicorn"
+                    prompt,
                 }
             }
         )) as [string, string];
 
         await runMutation(internal.blueprint.updateBluePrint, {
             bluePrintId,
-            result: output[1],
+            result: output[0],
         });
 
     }

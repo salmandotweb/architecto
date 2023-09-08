@@ -12,6 +12,7 @@ export const generateBluePrint = mutation({
 
 		await ctx.scheduler.runAfter(0, internal.generateBlueprint.generate, {
 			bluePrintId: newPrompt,
+			prompt: args.prompt,
 		});
 
 		return newPrompt;
@@ -24,8 +25,8 @@ export const updateBluePrint = internalMutation({
 		{ bluePrintId, result }: { bluePrintId: Id<"blueprints">; result: string }
 	) => {
 		await db.patch(bluePrintId, {
-			prompt: result,
-		});
+			result,
+		})
 	},
 });
 

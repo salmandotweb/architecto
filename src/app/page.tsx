@@ -7,6 +7,7 @@ import {
 	Authenticated,
 	Unauthenticated,
 	useMutation,
+	useQuery,
 } from "convex/react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { api } from "../../convex/_generated/api";
@@ -18,6 +19,7 @@ type Inputs = {
 
 export default function Home() {
 	const generateBluePrint = useMutation(api.blueprint.generateBluePrint);
+	const collection = useQuery(api.blueprint.getBluePrints);
 
 	const {
 		register,
@@ -50,6 +52,21 @@ export default function Home() {
 						</span>
 					)}
 				</form>
+				<div className="flex flex-wrap gap-3">
+					{collection?.map((item) => {
+						return (
+							<div className="flex flex-col gap-2">
+								<div className="text-[#000] text-[12px]">{item.prompt}</div>
+								<img
+									key={item._id}
+									width="256"
+									height="256"
+									src={item.result}
+								/>
+							</div>
+						);
+					})}
+				</div>
 
 				<SignOutButton />
 			</Authenticated>
