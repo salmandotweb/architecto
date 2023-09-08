@@ -9,7 +9,8 @@ export const generate = internalAction(
     async (
         { runMutation },
         {
-            bluePrintId
+            bluePrintId,
+            prompt
         }: { bluePrintId: Id<"blueprints">; prompt: string }
     ) => {
         if (!process.env.REPLICATE_API_TOKEN) {
@@ -26,7 +27,7 @@ export const generate = internalAction(
             "stability-ai/sdxl:da77bc59ee60423279fd632efb4795ab731d9e3ca9705ef3341091fb989b7eaf",
             {
                 input: {
-                    prompt,
+                    prompt: prompt,
                 }
             }
         )) as [string, string];

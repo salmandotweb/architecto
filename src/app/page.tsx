@@ -30,7 +30,7 @@ export default function Home() {
 	const onSubmit: SubmitHandler<Inputs> = (data) => {
 		return (
 			generateBluePrint({
-				prompt: data.prompt ?? "",
+				prompt: data.prompt,
 			}),
 			reset()
 		);
