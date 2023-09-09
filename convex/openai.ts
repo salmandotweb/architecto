@@ -18,8 +18,15 @@ export const openAI = internalAction(
             budget: string;
         }
     ) => {
+
+        if (!process.env.OPENAI_API_KEY) {
+            throw new Error(
+                "Please set OpenAI API key in .env file. See .env.example for more details."
+            );
+        }
+
         const prompt = `
-       I want to create a custom ${type} pc, budget is ${budget}, give me the best parts I can use to build a beast pc, give the best look I can achieve in it, I want the best design like the whole interior and outer look, suggest me the best table look like how can I arrange my stuff on the table, what should be on what space and also how chair should be like in front with mic and camera for streaming as well.
+       I want to create a custom ${type} pc, budget is ${budget}, give me a list of parts and prices for each part for best performance. 
        `;
 
         const openai = new OpenAI({
@@ -27,11 +34,11 @@ export const openAI = internalAction(
         });
         const completion = await openai.chat.completions.create({
             messages: [{ role: "user", content: prompt }],
-            model: "gpt-3.5-turbo",
+            model: "gpt-3.5-turbo-16k-0613",
         });
 
         await scheduler.runAfter(0, internal.generateBlueprint.generate, {
             bluePrintId,
-            prompt: completion.choices[0].message.content! ?? "",
+            prompt: completion.choices[0].message.content! + "\n" + "Create a image based on these specs which should look cool and artistic.",
         });
     })
