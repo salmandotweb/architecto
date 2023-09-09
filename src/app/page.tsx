@@ -2,11 +2,64 @@
 
 import { AuthLoading, Authenticated, Unauthenticated } from "convex/react";
 import { SignInButton } from "@clerk/clerk-react";
+import { RiRobot2Fill } from "react-icons/ri";
 
 export default function Home() {
 	return (
-		<div className="flex flex-col w-full items-center justify-center min-h-screen">
-			<Authenticated>Authenticated</Authenticated>
+		<div className="flex flex-col w-full items-center justify-start min-h-[80vh] px-6">
+			<Authenticated>
+				<div className="flex items-center justify-between w-full border p-3 rounded-tl-md rounded-tr-md">
+					<div className="flex flex-col items-start">
+						<h1 className="text-2xl font-bold">Custom PC</h1>
+						<p className="text-sm text-gray-500">
+							Build your own custom PC with AI
+						</p>
+					</div>
+				</div>
+				<div className="flex flex-col items-center justify-center w-full bg-slate-50 rounded-bl-md rounded-br-md min-h-[80vh] gap-10">
+					<div className="flex flex-col items-center gap-2">
+						<h1 className="text-5xl text-[green]">
+							<RiRobot2Fill />
+						</h1>
+						<h1 className="text-2xl font-bold">
+							Build your own custom PC with AI
+						</h1>
+						<p className="text-sm text-gray-500">
+							You can custom request the pc you want and we will build it for
+							you
+						</p>
+					</div>
+					<div className="flex items-center justify-center gap-3 px-10">
+						<div className="border bg-white p-8 flex items-center justify-center text-center flex-col rounded-md gap-3">
+							<h1 className="text-4xl text-[green] bg-slate-100 p-3 rounded-md">
+								<RiRobot2Fill />
+							</h1>
+							<h1 className="text-xl font-bold">PC Type</h1>
+							<p className="text-sm text-gray-500">
+								Select the type of PC you want eg. Gaming, Workstation, etc.
+							</p>
+						</div>
+						<div className="border bg-white p-8 flex items-center justify-center text-center flex-col rounded-md gap-3">
+							<h1 className="text-4xl text-[green] bg-slate-100 p-3 rounded-md">
+								<RiRobot2Fill />
+							</h1>
+							<h1 className="text-xl font-bold">PC Type</h1>
+							<p className="text-sm text-gray-500">
+								Select the type of PC you want eg. Gaming, Workstation, etc.
+							</p>
+						</div>
+						<div className="border bg-white p-8 flex items-center justify-center text-center flex-col rounded-md gap-3">
+							<h1 className="text-4xl text-[green] bg-slate-100 p-3 rounded-md">
+								<RiRobot2Fill />
+							</h1>
+							<h1 className="text-xl font-bold">PC Type</h1>
+							<p className="text-sm text-gray-500">
+								Select the type of PC you want eg. Gaming, Workstation, etc.
+							</p>
+						</div>
+					</div>
+				</div>
+			</Authenticated>
 			<Unauthenticated>
 				<SignInButton mode="modal" />
 			</Unauthenticated>

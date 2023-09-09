@@ -21,7 +21,7 @@ export default function RootLayout({
 					<ConvexClientProvider>
 						<div className="flex items-start w-full">
 							<Sidebar />
-							<div className="flex flex-col items-start gap-5 w-full">
+							<div className="flex flex-col items-start w-full">
 								<Header />
 								{children}
 							</div>

@@ -7,7 +7,7 @@ import { Input } from "../ui/input";
 const Header = () => {
 	const user = useUser();
 	return (
-		<div className="flex items-center justify-between w-full p-6">
+		<div className="flex items-center justify-between w-full px-6 py-5">
 			<div>
 				<Input placeholder="Search" size={50} />
 			</div>
