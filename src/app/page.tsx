@@ -1,10 +1,23 @@
 "use client";
 
-import { AuthLoading, Authenticated, Unauthenticated } from "convex/react";
+import {
+	AuthLoading,
+	Authenticated,
+	Unauthenticated,
+	useMutation,
+	useQuery,
+} from "convex/react";
 import { SignInButton } from "@clerk/clerk-react";
 import { RiRobot2Fill } from "react-icons/ri";
+import { Input } from "@/components/ui/input";
+import { useState } from "react";
+import { api } from "../../convex/_generated/api";
 
 export default function Home() {
+	const [inputValue, setInputValue] = useState("");
+	const generate = useMutation(api.blueprint.generateBluePrint);
+	const data = useQuery(api.blueprint.getBluePrints);
+
 	return (
 		<div className="flex flex-col w-full items-center justify-start min-h-[80vh] px-6">
 			<Authenticated>
@@ -21,7 +34,7 @@ export default function Home() {
 						<h1 className="text-5xl text-[green]">
 							<RiRobot2Fill />
 						</h1>
-						<h1 className="text-2xl font-bold">
+						<h1 className="text-3xl font-bold">
 							Build your own custom PC with AI
 						</h1>
 						<p className="text-sm text-gray-500">
@@ -58,6 +71,33 @@ export default function Home() {
 							</p>
 						</div>
 					</div>
+					<div className="px-6">
+						<Input
+							placeholder="Write type, budget, country etc."
+							size={100}
+							className="py-6"
+							value={inputValue}
+							onChange={(e) => {
+								setInputValue(e.target.value);
+							}}
+							onKeyDown={(e) => {
+								if (e.key === "Enter") {
+									generate({
+										prompt: inputValue,
+									});
+								}
+							}}
+						/>
+					</div>
+					{data?.map((item) => {
+						return (
+							<div
+								className="flex flex-col items-center justify-center w-full bg-white rounded-md p-6 gap-3"
+								key={item._id}>
+								<img src={item.result} alt={item._id} />
+							</div>
+						);
+					})}
 				</div>
 			</Authenticated>
 			<Unauthenticated>

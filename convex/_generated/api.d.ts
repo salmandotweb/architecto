@@ -16,6 +16,7 @@ import type {
 } from "convex/server";
 import type * as blueprint from "../blueprint";
 import type * as generateBlueprint from "../generateBlueprint";
+import type * as openai from "../openai";
 
 /**
  * A utility for referencing Convex functions in your app's API.
@@ -28,6 +29,7 @@ import type * as generateBlueprint from "../generateBlueprint";
 declare const fullApi: ApiFromModules<{
   blueprint: typeof blueprint;
   generateBlueprint: typeof generateBlueprint;
+  openai: typeof openai;
 }>;
 export declare const api: FilterApi<
   typeof fullApi,

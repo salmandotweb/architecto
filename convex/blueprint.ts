@@ -10,9 +10,10 @@ export const generateBluePrint = mutation({
 			prompt: args.prompt,
 		});
 
-		await ctx.scheduler.runAfter(0, internal.generateBlueprint.generate, {
+		await ctx.scheduler.runAfter(0, internal.openai.openAI, {
 			bluePrintId: newPrompt,
-			prompt: args.prompt,
+			type: "gaming",
+			budget: "500$",
 		});
 
 		return newPrompt;
@@ -22,10 +23,11 @@ export const generateBluePrint = mutation({
 export const updateBluePrint = internalMutation({
 	handler: async (
 		{ db },
-		{ bluePrintId, result }: { bluePrintId: Id<"blueprints">; result: string }
+		{ bluePrintId, result, prompt }: { bluePrintId: Id<"blueprints">; result?: string, prompt?: string }
 	) => {
 		await db.patch(bluePrintId, {
 			result,
+			prompt,
 		})
 	},
 });

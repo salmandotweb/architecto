@@ -34,6 +34,7 @@ export const generate = internalAction(
 
         await runMutation(internal.blueprint.updateBluePrint, {
             bluePrintId,
+            prompt,
             result: output[0],
         });
 
