@@ -1,7 +1,6 @@
 "use client";
 
 import { AuthLoading, Authenticated, Unauthenticated } from "convex/react";
-
 import { SignInButton } from "@clerk/clerk-react";
 
 export default function Home() {

@@ -34,11 +34,11 @@ const sidebarLinks = [
 
 const Sidebar = () => {
 	return (
-		<div className="flex flex-col gap-4 items-start justify-start min-h-screen min-w-[300px] border-r">
+		<div className="flex flex-col items-start justify-start min-h-screen min-w-[300px] border-r">
 			<div className="flex items-start justify-start p-6 border-b w-full">
 				<h1 className="text-2xl font-bold">Architecto</h1>
 			</div>
-			<div className="flex items-start justify-start p-6 border-b w-full">
+			<div className="flex items-start justify-start px-6 py-3 border-b w-full">
 				<Button size="icon" className="w-full gap-2 py-6">
 					<RiRobot2Fill />
 					Build with AI
