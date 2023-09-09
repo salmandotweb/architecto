@@ -12,7 +12,7 @@ export const generateBluePrint = mutation({
 
 		await ctx.scheduler.runAfter(0, internal.openai.openAI, {
 			bluePrintId: newPrompt,
-			type: "gaming",
+			type: "online gaming",
 			budget: "500$",
 		});
 

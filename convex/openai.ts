@@ -26,7 +26,7 @@ export const openAI = internalAction(
         }
 
         const prompt = `
-       I want to create a custom ${type} pc, budget is ${budget}, give me a list of parts and prices for each part for best performance. 
+       I want to build a ${type} room setup for myself. My budget is ${budget}. Suggest me the best possible design for my room. To be point answer with what I need.
        `;
 
         const openai = new OpenAI({
@@ -39,6 +39,6 @@ export const openAI = internalAction(
 
         await scheduler.runAfter(0, internal.generateBlueprint.generate, {
             bluePrintId,
-            prompt: completion.choices[0].message.content! + "\n" + "Create a image based on these specs which should look cool and artistic.",
+            prompt: completion.choices[0].message.content!,
         });
     })
