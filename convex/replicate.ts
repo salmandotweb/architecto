@@ -1,17 +1,15 @@
-"use node";
-
-import Replicate from "replicate";
 import { internalAction } from "./_generated/server";
 import { Id } from "./_generated/dataModel";
 import { internal } from "./_generated/api";
+import Replicate from "replicate";
 
 export const generate = internalAction(
     async (
         { runMutation },
         {
-            bluePrintId,
+            roomId,
             prompt
-        }: { bluePrintId: Id<"blueprints">; prompt: string }
+        }: { roomId: Id<"rooms">; prompt: string }
     ) => {
         if (!process.env.REPLICATE_API_TOKEN) {
             throw new Error(
@@ -32,8 +30,8 @@ export const generate = internalAction(
             }
         )) as [string, string];
 
-        await runMutation(internal.blueprint.updateBluePrint, {
-            bluePrintId,
+        await runMutation(internal.generate.updateRoomSetup, {
+            roomId,
             prompt,
             result: output[0],
         });

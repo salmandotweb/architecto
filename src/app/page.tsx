@@ -15,8 +15,8 @@ import { api } from "../../convex/_generated/api";
 
 export default function Home() {
 	const [inputValue, setInputValue] = useState("");
-	const generate = useMutation(api.blueprint.generateBluePrint);
-	const data = useQuery(api.blueprint.getBluePrints);
+	const generate = useMutation(api.generate.generateRoomSetup);
+	const data = useQuery(api.generate.getRoomSetups);
 
 	return (
 		<div className="flex flex-col w-full items-center justify-start min-h-[80vh] px-6">

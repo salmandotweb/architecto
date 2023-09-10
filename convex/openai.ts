@@ -9,11 +9,11 @@ export const openAI = internalAction(
     async (
         { scheduler },
         {
-            bluePrintId,
+            roomId,
             type,
             budget
         }: {
-            bluePrintId: Id<"blueprints">;
+            roomId: Id<"rooms">;
             type: string;
             budget: string;
         }
@@ -37,8 +37,8 @@ export const openAI = internalAction(
             model: "gpt-3.5-turbo-16k-0613",
         });
 
-        await scheduler.runAfter(0, internal.generateBlueprint.generate, {
-            bluePrintId,
+        await scheduler.runAfter(0, internal.replicate.generate, {
+            roomId,
             prompt: completion.choices[0].message.content!,
         });
     })

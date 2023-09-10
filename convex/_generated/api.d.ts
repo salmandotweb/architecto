@@ -14,9 +14,9 @@ import type {
   FilterApi,
   FunctionReference,
 } from "convex/server";
-import type * as blueprint from "../blueprint";
-import type * as generateBlueprint from "../generateBlueprint";
+import type * as generate from "../generate";
 import type * as openai from "../openai";
+import type * as replicate from "../replicate";
 
 /**
  * A utility for referencing Convex functions in your app's API.
@@ -27,9 +27,9 @@ import type * as openai from "../openai";
  * ```
  */
 declare const fullApi: ApiFromModules<{
-  blueprint: typeof blueprint;
-  generateBlueprint: typeof generateBlueprint;
+  generate: typeof generate;
   openai: typeof openai;
+  replicate: typeof replicate;
 }>;
 export declare const api: FilterApi<
   typeof fullApi,
