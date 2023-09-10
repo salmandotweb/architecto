@@ -9,7 +9,8 @@ export const generate = internalAction(
         {
             roomId,
             prompt,
-        }: { roomId: Id<"rooms">; prompt: string; }
+            replicatePrompt
+        }: { roomId: Id<"rooms">; prompt: string; replicatePrompt: string }
     ) => {
         if (!process.env.REPLICATE_API_TOKEN) {
             throw new Error(
@@ -25,7 +26,7 @@ export const generate = internalAction(
             "stability-ai/sdxl:da77bc59ee60423279fd632efb4795ab731d9e3ca9705ef3341091fb989b7eaf",
             {
                 input: {
-                    prompt: prompt,
+                    prompt: replicatePrompt,
                 },
             }
         )) as [string, string];

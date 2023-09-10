@@ -24,13 +24,13 @@ const roomTypes = [
 	},
 	{
 		name: "Streaming",
-		type: "streaming",
+		type: "live streaming",
 		image:
 			"https://images.unsplash.com/photo-1598550473359-433795503a0f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
 	},
 	{
 		name: "Office",
-		type: "office",
+		type: "office workstation",
 		image:
 			"https://images.unsplash.com/photo-1462826303086-329426d1aef5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
 	},
@@ -101,9 +101,9 @@ const Page = () => {
 		<>
 			{step === 1 && (
 				<div className="flex flex-col items-center text-center gap-2 w-full">
-					<h1 className="text-4xl font-bold">Select Room Type</h1>
+					<h1 className="text-4xl font-bold">Select Setup Type</h1>
 					<p className="text-sm text-gray-500">
-						Select the type of room you want to create
+						Select the type of setup you want to create
 					</p>
 					<div className="flex items-center justify-center gap-6 w-full mt-4">
 						{roomTypes?.map((item) => {
@@ -232,13 +232,13 @@ const Page = () => {
 								return prev + 1;
 							});
 
-							generateRoomSetup({
-								roomType: room.type.type,
-								budget: room.budget,
-								color: room.color,
-							});
+							// generateRoomSetup({
+							// 	roomType: room.type.type,
+							// 	budget: room.budget,
+							// 	color: room.color,
+							// });
 						}}
-						disabled={!room.color}
+						disabled={!room.color || !room.budget}
 						size="sm"
 						variant="default"
 						className="mr-auto flex items-center gap-2">
@@ -247,20 +247,25 @@ const Page = () => {
 				</div>
 			)}
 			{step === 3 && (
-				<div className="flex flex-col gap-6 mx-auto items-center justify-start w-[60%]">
-					<div className="w-full flex justify-start items-center gap-4">
-						<Button
-							variant="ghost"
-							size="icon"
-							className="text-4xl"
-							onClick={() => {
-								setStep((prev) => {
-									return prev - 1;
-								});
-							}}>
-							<BsArrowLeftShort />
-						</Button>
-						<h1 className="text-2xl font-bold">Back</h1>
+				<div className="flex flex-col gap-6 mx-auto items-center justify-start w-[60%] mt-10">
+					<div className="flex flex-col items-start gap-2">
+						<div className="flex items-center gap-2">
+							<Button
+								variant="ghost"
+								size="icon"
+								className="text-4xl"
+								onClick={() => {
+									setStep((prev) => {
+										return prev - 1;
+									});
+								}}>
+								<BsArrowLeftShort />
+							</Button>
+							<h1 className="text-2xl font-bold">Your Room Setup</h1>
+						</div>
+						<p className="text-sm text-gray-500">
+							Here is your room setup based on your preferences
+						</p>
 					</div>
 				</div>
 			)}

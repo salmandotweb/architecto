@@ -34,13 +34,22 @@ export const openAI = internalAction(
         const openai = new OpenAI({
             apiKey: process.env.OPENAI_API_KEY,
         });
+
         const completion = await openai.chat.completions.create({
-            messages: [{ role: "user", content: prompt }],
+            messages: [{ role: "system", content: prompt }],
+            model: "gpt-3.5-turbo-16k-0613",
+        });
+
+        const replicatePrompt = await openai.chat.completions.create({
+            messages: [{
+                role: "system", content: `${completion.choices[0].message.content!}.
+                Create a stable difussion prompt out of this.` }],
             model: "gpt-3.5-turbo-16k-0613",
         });
 
         await scheduler.runAfter(0, internal.replicate.generate, {
             roomId,
             prompt: completion.choices[0].message.content!,
+            replicatePrompt: replicatePrompt.choices[0].message.content!,
         });
     })

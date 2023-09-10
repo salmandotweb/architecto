@@ -41,7 +41,7 @@ export const updateRoomSetup = internalMutation({
 
 export const getRoomSetups = query(async ({ db }) => {
     const rooms = await db.query("rooms").collect();
-    return rooms;
+    return rooms.sort((a: any, b: any) => a.createdAt - b.createdAt);
 });
 
 export const getRoomSetup = query(({ db }, { roomId }: { roomId: Id<"rooms"> }) => {
