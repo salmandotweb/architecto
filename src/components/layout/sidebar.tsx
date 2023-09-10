@@ -39,15 +39,21 @@ const Sidebar = () => {
 				<h1 className="text-2xl font-bold">Architecto</h1>
 			</div>
 			<div className="flex items-start justify-start px-6 py-3 border-b w-full">
-				<Button size="icon" className="w-full gap-2 py-6">
-					<RiRobot2Fill />
-					Build with AI
-					<Badge
-						variant="default"
-						className="bg-white hover:bg-white text-primary rounded-xl">
-						New
-					</Badge>
-				</Button>
+				<Link
+					href="/"
+					style={{
+						width: "100%",
+					}}>
+					<Button size="icon" className="w-full gap-2 py-6">
+						<RiRobot2Fill />
+						Build with AI
+						<Badge
+							variant="default"
+							className="bg-white hover:bg-white text-primary rounded-xl">
+							New
+						</Badge>
+					</Button>
+				</Link>
 			</div>
 			<div className="flex items-start justify-start p-6 border-b w-full flex-col gap-3">
 				<h1 className="text-base text-[#5c5c5c] font-medium">Menu</h1>

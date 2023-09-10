@@ -23,7 +23,22 @@ export default function RootLayout({
 							<Sidebar />
 							<div className="flex flex-col items-start w-full">
 								<Header />
-								{children}
+								<div className="flex flex-col w-full items-center justify-start min-h-[80vh] px-6">
+									<div className="flex items-center justify-between w-full border p-3 rounded-tl-md rounded-tr-md">
+										<div className="flex flex-col items-start">
+											<h1 className="text-2xl font-bold">
+												Welcome to{" "}
+												<span className="text-primary">Architecto AI</span>
+											</h1>
+											<p className="text-sm text-gray-500">
+												Build your dream gaming setup with AI{" "}
+											</p>
+										</div>
+									</div>
+									<div className="flex flex-col items-center justify-center w-full bg-slate-50 rounded-bl-md rounded-br-md min-h-[80vh] gap-10">
+										{children}
+									</div>
+								</div>
 							</div>
 						</div>
 					</ConvexClientProvider>
