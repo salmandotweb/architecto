@@ -11,11 +11,13 @@ export const openAI = internalAction(
         {
             roomId,
             type,
-            budget
+            budget,
+            color
         }: {
             roomId: Id<"rooms">;
             type: string;
             budget: string;
+            color: string;
         }
     ) => {
 
@@ -26,7 +28,7 @@ export const openAI = internalAction(
         }
 
         const prompt = `
-       I want to build a ${type} room setup for myself. My budget is ${budget}. Suggest me the best possible design for my room. To be point answer with what I need.
+        I'd like to create the perfect ${type} room setup within a budget of ${budget} while maintaining a ${color} theme. Please provide me with your expert design recommendations.
        `;
 
         const openai = new OpenAI({

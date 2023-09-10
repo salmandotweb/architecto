@@ -4,16 +4,23 @@ import { internal } from "./_generated/api";
 import { Id } from "./_generated/dataModel";
 
 export const generateRoomSetup = mutation({
-    args: { prompt: v.string() },
+    args: {
+        roomType: v.string(),
+        budget: v.string(),
+        color: v.string(),
+    },
     handler: async (ctx, args) => {
         const newPrompt = await ctx.db.insert("rooms", {
-            prompt: args.prompt,
+            roomType: args.roomType,
+            budget: args.budget,
+            color: args.color,
         });
 
         await ctx.scheduler.runAfter(0, internal.openai.openAI, {
             roomId: newPrompt,
-            type: "online gaming",
-            budget: "500$",
+            type: args.roomType,
+            budget: args.budget,
+            color: args.color,
         });
 
         return newPrompt;
@@ -23,7 +30,7 @@ export const generateRoomSetup = mutation({
 export const updateRoomSetup = internalMutation({
     handler: async (
         { db },
-        { roomId, result, prompt }: { roomId: Id<"rooms">; result?: string[], prompt?: string }
+        { roomId, result, prompt, }: { roomId: Id<"rooms">; result?: string[], prompt?: string }
     ) => {
         await db.patch(roomId, {
             result,
@@ -36,3 +43,9 @@ export const getRoomSetups = query(async ({ db }) => {
     const rooms = await db.query("rooms").collect();
     return rooms;
 });
+
+export const getRoomSetup = query(({ db }, { roomId }: { roomId: Id<"rooms"> }) => {
+    if (!roomId) return null;
+    return db.get(roomId);
+}
+);

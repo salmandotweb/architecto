@@ -12,11 +12,13 @@ import {
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { GiMagicBroom } from "react-icons/gi";
+import { useMutation, useQuery } from "convex/react";
+import { api } from "../../../convex/_generated/api";
 
 const roomTypes = [
 	{
 		name: "Gaming",
-		type: "gaming",
+		type: "online gaming",
 		image:
 			"https://images.unsplash.com/photo-1603481588273-2f908a9a7a1b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
 	},
@@ -83,7 +85,7 @@ const colors = [
 
 const Page = () => {
 	const [step, setStep] = useState(1);
-	const [setup, setSetup] = useState({
+	const [room, setRoom] = useState({
 		type: {
 			name: "",
 			type: "",
@@ -92,6 +94,10 @@ const Page = () => {
 		budget: "",
 		color: "",
 	});
+
+	const generateRoomSetup = useMutation(api.generate.generateRoomSetup);
+	const roomSetups = useQuery(api.generate.getRoomSetups);
+
 	return (
 		<>
 			{step === 1 && (
@@ -106,7 +112,7 @@ const Page = () => {
 								<div
 									className={`border bg-white flex items-center justify-center text-center flex-col rounded-md gap-1 min-w-[350px] transition-all hover:bg-purple-50 hover:scale-105 relative h-[250px] overflow-hidden cursor-pointer hover:shadow-2xl shadow-inherit`}
 									onClick={() => {
-										setSetup((prev) => {
+										setRoom((prev) => {
 											return {
 												...prev,
 												type: {
@@ -124,7 +130,7 @@ const Page = () => {
 									/>
 									<div
 										className={`absolute inset-0 bg-gradient-to-b from-transparent ${
-											setup.type.type === item.type
+											room.type.type === item.type
 												? "to-purple-800"
 												: "to-black"
 										} opacity-70`}></div>
@@ -156,14 +162,14 @@ const Page = () => {
 					<div
 						className={`border bg-white flex w-full items-center justify-center text-center flex-col rounded-md gap-1 transition-all hover:bg-purple-50 relative h-[300px] overflow-hidden`}>
 						<img
-							src={setup.type.image}
-							alt={setup.type.name}
+							src={room.type.image}
+							alt={room.type.name}
 							className="w-full h-full object-cover"
 						/>
 						<div
 							className={`absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-70`}></div>
 						<div className="absolute inset-0 flex items-center justify-center">
-							<p className="text-white text-2xl font-bold">{setup.type.name}</p>
+							<p className="text-white text-2xl font-bold">{room.type.name}</p>
 						</div>
 					</div>
 					<div className="w-full flex flex-col gap-3 items-start">
@@ -174,9 +180,9 @@ const Page = () => {
 							id="budget"
 							type="number"
 							placeholder="$5000"
-							value={setup.budget}
+							value={room.budget}
 							onChange={(e) => {
-								setSetup((prev) => {
+								setRoom((prev) => {
 									return {
 										...prev,
 										budget: e.target.value,
@@ -196,15 +202,15 @@ const Page = () => {
 												<div
 													style={{ backgroundColor: `${color.color}` }}
 													className={`w-7 h-7 rounded-full cursor-pointer ${
-														color.color === setup.color
+														color.name === room.color
 															? "scale-105 ring-2 ring-purple-600"
 															: ""
 													}`}
 													onClick={() => {
-														setSetup((prev) => {
+														setRoom((prev) => {
 															return {
 																...prev,
-																color: color.color,
+																color: color.name,
 															};
 														});
 													}}
@@ -221,7 +227,14 @@ const Page = () => {
 					</div>
 
 					<Button
-						disabled={!setup.color}
+						onClick={() => {
+							generateRoomSetup({
+								roomType: room.type.type,
+								budget: room.budget,
+								color: room.color,
+							});
+						}}
+						disabled={!room.color}
 						size="sm"
 						variant="default"
 						className="mr-auto flex items-center gap-2">
@@ -229,9 +242,27 @@ const Page = () => {
 					</Button>
 				</div>
 			)}
+			{step === 3 && (
+				<div className="flex flex-col gap-6 mx-auto items-center justify-start w-[60%]">
+					<div className="w-full flex justify-start items-center gap-4">
+						<Button
+							variant="ghost"
+							size="icon"
+							className="text-4xl"
+							onClick={() => {
+								setStep((prev) => {
+									return prev - 1;
+								});
+							}}>
+							<BsArrowLeftShort />
+						</Button>
+						<h1 className="text-2xl font-bold">Back</h1>
+					</div>
+				</div>
+			)}
 			<div
 				className={`flex items-center justify-center gap-6 w-full ${
-					setup.type.type && step === 1 ? "visible" : "invisible"
+					room.type.type && step === 1 ? "visible" : "invisible"
 				}`}>
 				<Button
 					onClick={() => {

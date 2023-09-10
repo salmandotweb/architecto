@@ -8,7 +8,7 @@ export const generate = internalAction(
         { runMutation },
         {
             roomId,
-            prompt
+            prompt,
         }: { roomId: Id<"rooms">; prompt: string }
     ) => {
         if (!process.env.REPLICATE_API_TOKEN) {
@@ -26,7 +26,6 @@ export const generate = internalAction(
             {
                 input: {
                     prompt: prompt,
-                    num_outputs: 1,
                 },
             }
         )) as [string, string];
