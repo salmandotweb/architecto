@@ -12,7 +12,7 @@ import {
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { GiMagicBroom } from "react-icons/gi";
-import { useMutation, useQuery } from "convex/react";
+import { useMutation } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 
 const roomTypes = [
@@ -96,7 +96,6 @@ const Page = () => {
 	});
 
 	const generateRoomSetup = useMutation(api.generate.generateRoomSetup);
-	const roomSetups = useQuery(api.generate.getRoomSetups);
 
 	return (
 		<>
@@ -110,6 +109,7 @@ const Page = () => {
 						{roomTypes?.map((item) => {
 							return (
 								<div
+									key={item.name}
 									className={`border bg-white flex items-center justify-center text-center flex-col rounded-md gap-1 min-w-[350px] transition-all hover:bg-purple-50 hover:scale-105 relative h-[250px] overflow-hidden cursor-pointer hover:shadow-2xl shadow-inherit`}
 									onClick={() => {
 										setRoom((prev) => {
@@ -196,7 +196,7 @@ const Page = () => {
 						<div className="flex items-center w-full gap-2 flex-wrap">
 							{colors.map((color) => {
 								return (
-									<TooltipProvider>
+									<TooltipProvider key={color.color}>
 										<Tooltip>
 											<TooltipTrigger>
 												<div
@@ -228,6 +228,10 @@ const Page = () => {
 
 					<Button
 						onClick={() => {
+							setStep((prev) => {
+								return prev + 1;
+							});
+
 							generateRoomSetup({
 								roomType: room.type.type,
 								budget: room.budget,

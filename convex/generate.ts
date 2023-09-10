@@ -30,7 +30,7 @@ export const generateRoomSetup = mutation({
 export const updateRoomSetup = internalMutation({
     handler: async (
         { db },
-        { roomId, result, prompt, }: { roomId: Id<"rooms">; result?: string[], prompt?: string }
+        { roomId, result, prompt }: { roomId: Id<"rooms">; result?: string[], prompt?: string }
     ) => {
         await db.patch(roomId, {
             result,
