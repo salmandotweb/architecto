@@ -7,13 +7,13 @@ import Link from "next/link";
 
 const generationTypes = [
 	{
-		name: "Gaming Room",
+		name: "Room Setup",
 		description: "Generate a room setup",
 		path: "/room-setup",
 	},
 	{
-		name: "Gaming PC",
-		description: "Generate a pc setup",
+		name: "Improve existing setup",
+		description: "Improve your existing setup",
 		path: "/pc-setup",
 	},
 ];
