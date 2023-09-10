@@ -53,7 +53,9 @@ export default function Home() {
 			<Unauthenticated>
 				<SignInButton mode="modal" />
 			</Unauthenticated>
-			<AuthLoading>Still loading</AuthLoading>
+			<AuthLoading>
+				<h1 className="text-3xl">...</h1>
+			</AuthLoading>
 		</>
 	);
 }

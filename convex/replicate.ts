@@ -26,14 +26,15 @@ export const generate = internalAction(
             {
                 input: {
                     prompt: prompt,
-                }
+                    num_outputs: 1,
+                },
             }
         )) as [string, string];
 
         await runMutation(internal.generate.updateRoomSetup, {
             roomId,
             prompt,
-            result: output[0],
+            result: output,
         });
 
     }

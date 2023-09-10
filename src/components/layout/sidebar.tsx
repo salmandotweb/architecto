@@ -45,13 +45,10 @@ const Sidebar = () => {
 						width: "100%",
 					}}>
 					<Button size="icon" className="w-full gap-2 py-6">
-						<RiRobot2Fill />
+						<h1 className="text-2xl">
+							<RiRobot2Fill />
+						</h1>
 						Build with AI
-						<Badge
-							variant="default"
-							className="bg-white hover:bg-white text-primary rounded-xl">
-							New
-						</Badge>
 					</Button>
 				</Link>
 			</div>
