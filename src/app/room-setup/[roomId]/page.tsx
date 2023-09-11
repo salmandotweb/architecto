@@ -29,7 +29,7 @@ export default function Page({ params }: { params: { roomId: string } }) {
 				</Link>
 			</div>
 			<div className="flex items-start flex-col w-full gap-4">
-				<div className="grid grid-cols-2 gap-4 w-full">
+				<div className="grid grid-cols-1 gap-4 w-full">
 					{getRoomSetup?.result &&
 						getRoomSetup?.result?.map((result) => {
 							return (
@@ -39,7 +39,7 @@ export default function Page({ params }: { params: { roomId: string } }) {
 									style={{
 										objectFit: "cover",
 										width: "100%",
-										height: "500px",
+										height: "800px",
 									}}
 								/>
 							);
