@@ -29,6 +29,7 @@ export const generate = internalAction(
             {
                 input: {
                     prompt: replicatePrompt,
+                    num_outputs: 1,
                 },
             }
         )) as [string, string];

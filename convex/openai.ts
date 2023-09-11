@@ -56,7 +56,7 @@ export const openAI = internalAction(
         const setupName = await openai.chat.completions.create({
             messages: [{
                 role: "system", content: `${completion.choices[0].message.content!}.
-                Give this setup a 2 word name as well.` }],
+                Generate a 2 word name for this setup, should be unique and cool.` }],
             model: "gpt-3.5-turbo-16k-0613",
         });
 

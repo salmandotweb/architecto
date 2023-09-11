@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BiRightArrowAlt } from "react-icons/bi";
 import { BsArrowLeftShort } from "react-icons/bs";
 import {
@@ -25,7 +25,7 @@ const roomTypes = [
 	},
 	{
 		name: "Streaming",
-		type: "live streaming",
+		type: "live game streaming",
 		image:
 			"https://images.unsplash.com/photo-1598550473359-433795503a0f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
 	},
@@ -82,6 +82,10 @@ const colors = [
 		name: "Lime",
 		color: "#84CC16",
 	},
+	{
+		name: "Amber",
+		color: "#F59E0B",
+	},
 ];
 
 const Page = () => {
@@ -102,15 +106,20 @@ const Page = () => {
 	const router = useRouter();
 
 	const handleGeneration = async () => {
-		// const response = await generateRoomSetup({
-		// 	roomType: room.type.type,
-		// 	budget: room.budget,
-		// 	color: room.color,
-		// });
-		// setRoomId(response);
+		const response = await generateRoomSetup({
+			roomType: room.type.type,
+			budget: room.budget,
+			color: room.color,
+		});
 
-		router.push(`/room-setup/${roomId}`);
+		setRoomId(response);
 	};
+
+	useEffect(() => {
+		if (roomId) {
+			router.push(`/room-setup/${roomId}`);
+		}
+	}, [roomId]);
 
 	return (
 		<>
@@ -242,7 +251,9 @@ const Page = () => {
 					</div>
 
 					<Button
-						onClick={handleGeneration}
+						onClick={() => {
+							handleGeneration();
+						}}
 						disabled={!room.color || !room.budget}
 						size="sm"
 						variant="default"
