@@ -14,6 +14,7 @@ import {
 import { GiMagicBroom } from "react-icons/gi";
 import { useMutation } from "convex/react";
 import { api } from "../../../convex/_generated/api";
+import { useRouter } from "next/navigation";
 
 const roomTypes = [
 	{
@@ -85,6 +86,7 @@ const colors = [
 
 const Page = () => {
 	const [step, setStep] = useState(1);
+	const [roomId, setRoomId] = useState("");
 	const [room, setRoom] = useState({
 		type: {
 			name: "",
@@ -96,6 +98,19 @@ const Page = () => {
 	});
 
 	const generateRoomSetup = useMutation(api.generate.generateRoomSetup);
+
+	const router = useRouter();
+
+	const handleGeneration = async () => {
+		// const response = await generateRoomSetup({
+		// 	roomType: room.type.type,
+		// 	budget: room.budget,
+		// 	color: room.color,
+		// });
+		// setRoomId(response);
+
+		router.push(`/room-setup/${roomId}`);
+	};
 
 	return (
 		<>
@@ -227,17 +242,7 @@ const Page = () => {
 					</div>
 
 					<Button
-						onClick={() => {
-							setStep((prev) => {
-								return prev + 1;
-							});
-
-							// generateRoomSetup({
-							// 	roomType: room.type.type,
-							// 	budget: room.budget,
-							// 	color: room.color,
-							// });
-						}}
+						onClick={handleGeneration}
 						disabled={!room.color || !room.budget}
 						size="sm"
 						variant="default"
@@ -246,29 +251,7 @@ const Page = () => {
 					</Button>
 				</div>
 			)}
-			{step === 3 && (
-				<div className="flex flex-col gap-6 mx-auto items-center justify-start w-[60%] mt-10">
-					<div className="flex flex-col items-start gap-2">
-						<div className="flex items-center gap-2">
-							<Button
-								variant="ghost"
-								size="icon"
-								className="text-4xl"
-								onClick={() => {
-									setStep((prev) => {
-										return prev - 1;
-									});
-								}}>
-								<BsArrowLeftShort />
-							</Button>
-							<h1 className="text-2xl font-bold">Your Room Setup</h1>
-						</div>
-						<p className="text-sm text-gray-500">
-							Here is your room setup based on your preferences
-						</p>
-					</div>
-				</div>
-			)}
+
 			<div
 				className={`flex items-center justify-center gap-6 w-full ${
 					room.type.type && step === 1 ? "visible" : "invisible"

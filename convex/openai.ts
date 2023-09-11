@@ -27,8 +27,7 @@ export const openAI = internalAction(
             );
         }
 
-        const prompt = `
-        I'd like to create the perfect ${type} room setup within a budget of ${budget} while maintaining a ${color} theme. Please provide me with your expert design recommendations.
+        const prompt = `Assist me in crafting an ideal ${type} arrangement, considering a ${color} theme, all within a ${budget} budget. Provide recommendations for top-notch products in each category, with detailed explanations for their superiority. Additionally, offer insights on optimal table placement within the room, wall decor, and any other elements essential to achieve the perfect setup.
        `;
 
         const openai = new OpenAI({
@@ -43,7 +42,21 @@ export const openAI = internalAction(
         const replicatePrompt = await openai.chat.completions.create({
             messages: [{
                 role: "system", content: `${completion.choices[0].message.content!}.
-                Create a stable difussion prompt out of this.` }],
+                Create a stable difussion prompt for image creation.` }],
+            model: "gpt-3.5-turbo-16k-0613",
+        });
+
+        const markdownResponse = await openai.chat.completions.create({
+            messages: [{
+                role: "system", content: `${completion.choices[0].message.content!}.
+                Generate the response as markdown.` }],
+            model: "gpt-3.5-turbo-16k-0613",
+        });
+
+        const setupName = await openai.chat.completions.create({
+            messages: [{
+                role: "system", content: `${completion.choices[0].message.content!}.
+                Give this setup a 2 word name as well.` }],
             model: "gpt-3.5-turbo-16k-0613",
         });
 
@@ -51,5 +64,7 @@ export const openAI = internalAction(
             roomId,
             prompt: completion.choices[0].message.content!,
             replicatePrompt: replicatePrompt.choices[0].message.content!,
+            markdownResponse: markdownResponse.choices[0].message.content!,
+            setupName: setupName.choices[0].message.content!,
         });
     })

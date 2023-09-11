@@ -9,8 +9,10 @@ export const generate = internalAction(
         {
             roomId,
             prompt,
-            replicatePrompt
-        }: { roomId: Id<"rooms">; prompt: string; replicatePrompt: string }
+            replicatePrompt,
+            markdownResponse,
+            setupName
+        }: { roomId: Id<"rooms">; prompt: string; replicatePrompt: string, markdownResponse: string, setupName: string }
     ) => {
         if (!process.env.REPLICATE_API_TOKEN) {
             throw new Error(
@@ -35,6 +37,9 @@ export const generate = internalAction(
             roomId,
             prompt,
             result: output,
+            markdownResponse: markdownResponse,
+            replicatePrompt: replicatePrompt,
+            setupName: setupName
         });
 
     }

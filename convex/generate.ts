@@ -30,18 +30,21 @@ export const generateRoomSetup = mutation({
 export const updateRoomSetup = internalMutation({
     handler: async (
         { db },
-        { roomId, result, prompt }: { roomId: Id<"rooms">; result?: string[], prompt?: string }
+        { roomId, result, prompt, markdownResponse, replicatePrompt, setupName }: { roomId: Id<"rooms">; result?: string[], prompt?: string, markdownResponse?: string, replicatePrompt?: string, setupName?: string }
     ) => {
         await db.patch(roomId, {
             result,
             prompt,
+            markdownResponse,
+            replicatePrompt,
+            setupName
         })
     },
 });
 
 export const getRoomSetups = query(async ({ db }) => {
     const rooms = await db.query("rooms").collect();
-    return rooms.sort((a: any, b: any) => a.createdAt - b.createdAt);
+    return rooms.sort((a: any, b: any) => b.createdAt - a.createdAt);
 });
 
 export const getRoomSetup = query(({ db }, { roomId }: { roomId: Id<"rooms"> }) => {

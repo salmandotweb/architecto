@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { RiRobot2Fill } from "react-icons/ri";
-import { Badge } from "../ui/badge";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { BsCollection } from "react-icons/bs";
 import { HiOutlineBuildingStorefront } from "react-icons/hi2";
