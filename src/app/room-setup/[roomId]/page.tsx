@@ -31,9 +31,10 @@ export default function Page({ params }: { params: { roomId: string } }) {
 			<div className="flex items-start flex-col w-full gap-4">
 				<div className="grid grid-cols-1 gap-4 w-full">
 					{getRoomSetup?.result &&
-						getRoomSetup?.result?.map((result) => {
+						getRoomSetup?.result?.map((result,index) => {
 							return (
 								<img
+									key={index}
 									src={result}
 									alt={getRoomSetup.roomType}
 									style={{
