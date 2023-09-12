@@ -27,7 +27,7 @@ export const openAI = internalAction(
             );
         }
 
-        const prompt = `Assist me in crafting an ideal ${type} arrangement, considering a ${color} theme, all within a ${budget} budget. Provide recommendations for top-notch products in each category, with detailed explanations for their superiority. Additionally, offer insights on optimal table placement within the room, wall decor, and any other elements essential to achieve the perfect setup.
+        const prompt = `Assist me in crafting an ideal ${type} arrangement, considering a ${color} theme, all within a ${budget}$ budget. Provide recommendations for top-notch products in each category, with detailed explanations for their superiority. Additionally, offer insights on optimal table placement within the room, wall decor, and any other elements essential to achieve the perfect setup.
        `;
 
         const openai = new OpenAI({
