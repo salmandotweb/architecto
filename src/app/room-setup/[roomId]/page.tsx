@@ -31,7 +31,7 @@ export default function Page({ params }: { params: { roomId: string } }) {
 			<div className="flex items-start flex-col w-full gap-4">
 				<div className="grid grid-cols-1 gap-4 w-full">
 					{getRoomSetup?.result &&
-						getRoomSetup?.result?.map((result,index) => {
+						getRoomSetup?.result?.map((result, index) => {
 							return (
 								<img
 									key={index}
@@ -47,10 +47,9 @@ export default function Page({ params }: { params: { roomId: string } }) {
 						})}
 				</div>
 				{getRoomSetup?.markdownResponse && (
-					<ReactMarkdown
-						children={getRoomSetup?.markdownResponse}
-						remarkPlugins={[remarkGfm]}
-					/>
+					<ReactMarkdown remarkPlugins={[remarkGfm]}>
+						{getRoomSetup?.markdownResponse}
+					</ReactMarkdown>
 				)}
 			</div>
 		</div>
