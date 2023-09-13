@@ -10,11 +10,12 @@ export const generateRoomSetup = mutation({
         color: v.string(),
     },
     handler: async (ctx, args) => {
+
         const newPrompt = await ctx.db.insert("rooms", {
             roomType: args.roomType,
             budget: args.budget,
             color: args.color,
-        });
+        })
 
         await ctx.scheduler.runAfter(0, internal.openai.openAI, {
             roomId: newPrompt,
@@ -24,6 +25,7 @@ export const generateRoomSetup = mutation({
         });
 
         return newPrompt;
+
     },
 });
 
@@ -32,6 +34,7 @@ export const updateRoomSetup = internalMutation({
         { db },
         { roomId, result, prompt, markdownResponse, replicatePrompt, setupName }: { roomId: Id<"rooms">; result?: string[], prompt?: string, markdownResponse?: string, replicatePrompt?: string, setupName?: string }
     ) => {
+
         await db.patch(roomId, {
             result,
             prompt,
@@ -39,6 +42,7 @@ export const updateRoomSetup = internalMutation({
             replicatePrompt,
             setupName
         })
+
     },
 });
 

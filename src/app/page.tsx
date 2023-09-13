@@ -14,7 +14,7 @@ const generationTypes = [
 	{
 		name: "Improve existing setup",
 		description: "Improve your existing setup",
-		path: "/pc-setup",
+		path: "/improve-setup",
 	},
 ];
 

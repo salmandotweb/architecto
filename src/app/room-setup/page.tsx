@@ -24,8 +24,8 @@ const roomTypes = [
 			"https://images.unsplash.com/photo-1603481588273-2f908a9a7a1b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
 	},
 	{
-		name: "Streaming",
-		type: "live game streaming",
+		name: "Youtuber",
+		type: "youtuber setup",
 		image:
 			"https://images.unsplash.com/photo-1598550473359-433795503a0f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
 	},
@@ -100,19 +100,25 @@ const Page = () => {
 		budget: "",
 		color: "",
 	});
+	const [disabled, setDisabled] = useState(false);
 
 	const generateRoomSetup = useMutation(api.generate.generateRoomSetup);
 
 	const router = useRouter();
 
 	const handleGeneration = async () => {
-		const response = await generateRoomSetup({
-			roomType: room.type.type,
-			budget: room.budget,
-			color: room.color,
-		});
-
-		setRoomId(response);
+		try {
+			setDisabled(true);
+			const response = await generateRoomSetup({
+				roomType: room.type.type,
+				budget: room.budget,
+				color: room.color,
+			});
+			setRoomId(response);
+		} catch (error) {
+			setDisabled(false);
+			console.log(error);
+		}
 	};
 
 	useEffect(() => {
@@ -254,7 +260,7 @@ const Page = () => {
 						onClick={() => {
 							handleGeneration();
 						}}
-						disabled={!room.color || !room.budget}
+						disabled={!room.color || !room.budget || disabled}
 						size="sm"
 						variant="default"
 						className="mr-auto flex items-center gap-2">

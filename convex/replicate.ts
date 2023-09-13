@@ -30,6 +30,7 @@ export const generate = internalAction(
                 input: {
                     prompt: replicatePrompt,
                     num_outputs: 1,
+                    negative_prompt: "blurry, low-quality, low-resolution, low-res, noisy, grainy, pixelated, distorted, dark, dim, overexposed, underexposed, washed-out, washed out, over-saturated, over saturated, under-saturated, under saturated, over-sharpened, over sharpened, under-sharpened, under sharpened, overexposed, underexposed, over-exposed, under-exposed, over saturated, under saturated, over-sharpened, under-sharpened, over sharpened, under sharpened, over exposed, under exposed, over saturated, under saturated, over sharpe"
                 },
             }
         )) as [string, string];

@@ -8,12 +8,13 @@ import { Button } from "@/components/ui/button";
 import { GiMagicBroom } from "react-icons/gi";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import Loader from "@/components/loader";
 
 export default function Page({ params }: { params: { roomId: string } }) {
 	const getRoomSetup = useQuery(api.generate.getRoomSetup, {
 		roomId: params.roomId as Id<"rooms">,
 	});
-	return (
+	return getRoomSetup?.result ? (
 		<div className="flex flex-col gap-6 mx-auto items-center justify-start w-[80%] mt-10 pb-4">
 			<div className="flex items-end justify-between gap-2 w-full">
 				<div className="flex items-start gap-2 flex-col">
@@ -29,7 +30,7 @@ export default function Page({ params }: { params: { roomId: string } }) {
 				</Link>
 			</div>
 			<div className="flex items-start flex-col w-full gap-4">
-				<div className="grid grid-cols-1 gap-4 w-full">
+				<div className="w-full">
 					{getRoomSetup?.result &&
 						getRoomSetup?.result?.map((result, index) => {
 							return (
@@ -38,9 +39,8 @@ export default function Page({ params }: { params: { roomId: string } }) {
 									src={result}
 									alt={getRoomSetup.roomType}
 									style={{
-										objectFit: "cover",
+										objectFit: "contain",
 										width: "100%",
-										height: "800px",
 									}}
 								/>
 							);
@@ -53,5 +53,7 @@ export default function Page({ params }: { params: { roomId: string } }) {
 				)}
 			</div>
 		</div>
+	) : (
+		<Loader />
 	);
 }
