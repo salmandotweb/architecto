@@ -19,19 +19,19 @@ import { useRouter } from "next/navigation";
 const roomTypes = [
 	{
 		name: "Gaming",
-		type: "online gaming",
+		type: "online gaming room",
 		image:
 			"https://images.unsplash.com/photo-1603481588273-2f908a9a7a1b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
 	},
 	{
 		name: "Youtuber",
-		type: "youtuber setup",
+		type: "youtuber room",
 		image:
 			"https://images.unsplash.com/photo-1598550473359-433795503a0f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
 	},
 	{
 		name: "Office",
-		type: "office workstation",
+		type: "office workstation room",
 		image:
 			"https://images.unsplash.com/photo-1462826303086-329426d1aef5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
 	},

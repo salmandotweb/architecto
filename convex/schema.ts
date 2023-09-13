@@ -12,4 +12,7 @@ export default defineSchema({
         replicatePrompt: v.optional(v.string()),
         setupName: v.optional(v.string()),
     }),
+    improvedRooms: defineTable({
+        image: v.string(),
+    })
 });

@@ -46,6 +46,20 @@ export const updateRoomSetup = internalMutation({
     },
 });
 
+export const generateUploadUrl = mutation(async (ctx) => {
+    return await ctx.storage.generateUploadUrl();
+});
+
+export const sendImage = mutation({
+    args: { storageId: v.string() },
+    handler: async (ctx, args) => {
+        await ctx.db.insert("improvedRooms", {
+            image: args.storageId,
+        });
+    },
+});
+
+
 export const getRoomSetups = query(async ({ db }) => {
     const rooms = await db.query("rooms").collect();
     return rooms.sort((a: any, b: any) => b.createdAt - a.createdAt);
