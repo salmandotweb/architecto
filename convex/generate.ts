@@ -1,7 +1,10 @@
 import { internalMutation, mutation, query } from "./_generated/server";
+import ConvexError from "convex/values";
 import { v } from "convex/values";
 import { internal } from "./_generated/api";
 import { Id } from "./_generated/dataModel";
+
+
 
 export const generateRoomSetup = mutation({
     args: {
@@ -60,12 +63,20 @@ export const sendImage = mutation({
 });
 
 
-export const getRoomSetups = query(async ({ db }) => {
+export const getRoomSetups = query(async ({ auth, db }) => {
+    const identity = await auth.getUserIdentity();
+    if (identity === null) {
+        return []
+    }
     const rooms = await db.query("rooms").collect();
     return rooms.sort((a: any, b: any) => b.createdAt - a.createdAt);
 });
 
-export const getRoomSetup = query(({ db }, { roomId }: { roomId: Id<"rooms"> }) => {
+export const getRoomSetup = query(async ({ auth, db }, { roomId }: { roomId: Id<"rooms"> }) => {
+    const identity = await auth.getUserIdentity();
+    if (identity === null) {
+        return null
+    }
     if (!roomId) return null;
     return db.get(roomId);
 }

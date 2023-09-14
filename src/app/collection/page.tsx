@@ -9,12 +9,13 @@ export default function CollectionPage() {
 	const getCollection = useQuery(api.generate.getRoomSetups);
 
 	function capitalizeFirstLetter(string: string) {
-		// remove the quotes from the string if there are any
 		string = string.replace(/['"]+/g, "");
 		return string.charAt(0).toUpperCase() + string.slice(1);
 	}
 
 	const router = useRouter();
+
+	console.log(getCollection);
 
 	return (
 		<div className="flex items-center gap-6 justify-start w-[80%] flex-wrap pt-[40px] pb-[20px]">

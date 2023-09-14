@@ -1,7 +1,7 @@
 "use client";
 
 import { AuthLoading, Authenticated, Unauthenticated } from "convex/react";
-import { SignInButton } from "@clerk/clerk-react";
+import { SignInButton, SignOutButton } from "@clerk/clerk-react";
 import { RiRobot2Fill } from "react-icons/ri";
 import Link from "next/link";
 
@@ -49,6 +49,8 @@ export default function Home() {
 						);
 					})}
 				</div>
+
+				<SignOutButton />
 			</Authenticated>
 			<Unauthenticated>
 				<SignInButton mode="modal" />
