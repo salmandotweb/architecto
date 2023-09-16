@@ -1,9 +1,15 @@
+"use client";
+
 import "./globals.css";
 import { Manrope } from "next/font/google";
 import ConvexClientProvider from "./ConvexClientProvider";
 import { ThemeProvider } from "@/components/theme-provider";
 import Sidebar from "@/components/layout/sidebar";
 import Header from "@/components/layout/header";
+import { AuthLoading, Authenticated, Unauthenticated } from "convex/react";
+import { SignInButton } from "@clerk/clerk-react";
+import Loading from "./loading";
+import { Button } from "@/components/ui/button";
 
 const manrope = Manrope({
 	subsets: ["latin"],
@@ -36,7 +42,15 @@ export default function RootLayout({
 										</div>
 									</div>
 									<div className="flex flex-col items-center justify-center w-full bg-slate-50 rounded-bl-md rounded-br-md min-h-[80vh] gap-10">
-										{children}
+										<Authenticated>{children}</Authenticated>
+										<Unauthenticated>
+											<Button variant="outline">
+												<SignInButton mode="modal" />
+											</Button>
+										</Unauthenticated>
+										<AuthLoading>
+											<Loading />
+										</AuthLoading>
 									</div>
 								</div>
 							</div>
