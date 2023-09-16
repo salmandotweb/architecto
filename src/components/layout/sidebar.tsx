@@ -23,7 +23,7 @@ const sidebarLinks = [
 	{
 		name: "My Collection",
 		icon: <MdOutlineCollectionsBookmark />,
-		path: "/collection",
+		path: "/my-collection",
 	},
 	{
 		name: "Favourites",
