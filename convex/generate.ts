@@ -5,13 +5,20 @@ import { Id } from "./_generated/dataModel";
 
 export const generateRoomSetup = mutation({
     args: {
+        userId: v.string(),
         roomType: v.string(),
         budget: v.string(),
         color: v.string(),
     },
     handler: async (ctx, args) => {
+        const identity = await ctx.auth.getUserIdentity();
+
+        if (identity === null) {
+            return null
+        }
 
         const newPrompt = await ctx.db.insert("rooms", {
+            userId: args.userId,
             roomType: args.roomType,
             budget: args.budget,
             color: args.color,
@@ -45,12 +52,29 @@ export const updateRoomSetup = internalMutation({
     },
 });
 
-export const getRoomSetups = query(async ({ auth, db }) => {
+export const getMyRoomSetups = query(async ({ auth, db }, { userId }: {
+    userId: Id<"rooms">
+}) => {
     const identity = await auth.getUserIdentity();
     if (identity === null) {
         return []
     }
     const rooms = await db.query("rooms").collect();
+    const myRooms = rooms.filter((room) => room.userId === userId);
+    return myRooms.sort((a, b) => {
+        return b._creationTime - a._creationTime;
+    })
+});
+
+export const getRoomSetups = query(async ({ auth, db }, { userId }: {
+    userId: Id<"rooms">
+}) => {
+    const identity = await auth.getUserIdentity();
+    if (identity === null) {
+        return []
+    }
+    const rooms = await db.query("rooms").collect();
+
     return rooms.sort((a, b) => {
         return b._creationTime - a._creationTime;
     })

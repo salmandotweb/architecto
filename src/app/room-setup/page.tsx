@@ -15,17 +15,18 @@ import { GiMagicBroom } from "react-icons/gi";
 import { useMutation } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { useRouter } from "next/navigation";
+import { useGetUser } from "@/hooks/useGetUser";
 
 const roomTypes = [
 	{
 		name: "Gaming",
-		type: "online gaming room",
+		type: "online gaming room with custom gaming pc",
 		image:
 			"https://images.unsplash.com/photo-1603481588273-2f908a9a7a1b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
 	},
 	{
 		name: "Youtuber",
-		type: "youtuber room",
+		type: "youtuber room with custom pc",
 		image:
 			"https://images.unsplash.com/photo-1598550473359-433795503a0f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
 	},
@@ -104,17 +105,22 @@ const Page = () => {
 
 	const generateRoomSetup = useMutation(api.generate.generateRoomSetup);
 
+	const user = useGetUser();
+
 	const router = useRouter();
 
 	const handleGeneration = async () => {
 		try {
 			setDisabled(true);
 			const response = await generateRoomSetup({
+				userId: user?.id ?? "",
 				roomType: room.type.type,
 				budget: room.budget,
 				color: room.color,
 			});
-			setRoomId(response);
+			if (response) {
+				setRoomId(response);
+			}
 		} catch (error) {
 			setDisabled(false);
 			console.log(error);

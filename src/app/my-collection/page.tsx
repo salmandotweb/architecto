@@ -11,7 +11,7 @@ import { Id } from "../../../convex/_generated/dataModel";
 export default function CollectionPage() {
 	const user = useGetUser();
 
-	const getCollection = useQuery(api.generate.getRoomSetups, {
+	const getCollection = useQuery(api.generate.getMyRoomSetups, {
 		userId: user?.id as Id<"rooms">,
 	});
 

@@ -5,29 +5,31 @@ import { Button } from "../ui/button";
 import { RiRobot2Fill } from "react-icons/ri";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { BsCollection } from "react-icons/bs";
-import { HiOutlineBuildingStorefront } from "react-icons/hi2";
 import { GiFallingStar } from "react-icons/gi";
+import { Badge } from "../ui/badge";
+import { MdOutlineCollectionsBookmark } from "react-icons/md";
 
 const sidebarLinks = [
 	{
-		name: "Dashboard",
+		name: "Home",
 		icon: <LuLayoutDashboard />,
 		path: "/",
 	},
 	{
-		name: "Collection",
+		name: "Explore",
 		icon: <BsCollection />,
 		path: "/collection",
 	},
 	{
-		name: "Marketplace",
-		icon: <HiOutlineBuildingStorefront />,
-		path: "/marketplace",
+		name: "My Collection",
+		icon: <MdOutlineCollectionsBookmark />,
+		path: "/collection",
 	},
 	{
-		name: "Dreamspace",
+		name: "Favourites",
 		icon: <GiFallingStar />,
-		path: "/dreamspace",
+		path: "/davourites",
+		comingSoon: true,
 	},
 ];
 
@@ -57,7 +59,7 @@ const Sidebar = () => {
 					{sidebarLinks.map((link, index) => {
 						return (
 							<Link
-								href={link.path}
+								href={link.comingSoon ? "#" : link.path}
 								key={index}
 								style={{
 									width: "100%",
@@ -65,9 +67,11 @@ const Sidebar = () => {
 								<Button
 									size="icon"
 									variant="ghost"
+									disabled={link.comingSoon}
 									className="w-full gap-2 py-5 flex items-center justify-start text-start text-[16px] pl-2">
 									{link.icon}
 									{link.name}
+									{link.comingSoon && <Badge variant="secondary">Soon</Badge>}
 								</Button>
 							</Link>
 						);

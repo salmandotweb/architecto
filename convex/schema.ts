@@ -3,6 +3,7 @@ import { v } from "convex/values";
 
 export default defineSchema({
     rooms: defineTable({
+        userId: v.optional(v.string()),
         budget: v.string(),
         color: v.string(),
         prompt: v.optional(v.string()),
@@ -12,4 +13,5 @@ export default defineSchema({
         replicatePrompt: v.optional(v.string()),
         setupName: v.optional(v.string()),
     }),
+
 });

@@ -14,7 +14,8 @@ const generationTypes = [
 	{
 		name: "Improve existing setup",
 		description: "Improve your existing setup",
-		path: "/improve-setup",
+		path: "/",
+		comingSoon: true,
 	},
 ];
 
@@ -38,12 +39,21 @@ export default function Home() {
 					{generationTypes?.map((item) => {
 						return (
 							<Link href={item.path} key={item.name}>
-								<div className="border bg-white p-8 flex items-center justify-center text-center flex-col rounded-md gap-1 min-w-[350px] transition-all hover:bg-purple-50 hover:scale-105">
+								<div className="relative border bg-white p-8 flex items-center justify-center text-center flex-col rounded-md gap-1 min-w-[350px] transition-all hover:bg-purple-50 hover:scale-105 group">
+									{/* Original Content */}
 									<h1 className="text-4xl text-primary p-3 rounded-md bg-purple-100">
 										<RiRobot2Fill />
 									</h1>
 									<h1 className="text-xl font-bold mt-2">{item.name}</h1>
 									<p className="text-sm text-gray-500">{item.description}</p>
+
+									{item.comingSoon && (
+										<div className="absolute inset-0 flex items-center justify-center transition-opacity opacity-0 group-hover:opacity-100 bg-black bg-opacity-60">
+											<p className="text-white text-xl font-medium">
+												Coming Soon
+											</p>
+										</div>
+									)}
 								</div>
 							</Link>
 						);
