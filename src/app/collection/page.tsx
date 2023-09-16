@@ -15,16 +15,14 @@ export default function CollectionPage() {
 
 	const router = useRouter();
 
-	console.log(getCollection);
-
 	return (
-		<div className="flex items-center gap-6 justify-start w-[80%] flex-wrap pt-[40px] pb-[20px]">
+		<div className="flex items-center gap-6 justify-center w-[90%] flex-wrap pt-[40px] pb-[20px]">
 			{getCollection ? (
 				getCollection?.map((item, index) => {
 					return (
 						item.result && (
 							<div
-								className="flex flex-col gap-2 min-w-[30%] bg-white rounded-md overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:scale-105 transition-all cursor-pointer"
+								className="flex flex-col gap-2 min-w-[32%] bg-white rounded-md overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:scale-105 transition-all cursor-pointer"
 								key={index}
 								onClick={() => {
 									router.push(`/room-setup/${item._id}`);
@@ -34,13 +32,13 @@ export default function CollectionPage() {
 										src={item.result[0]}
 										alt={item.roomType}
 										style={{
-											objectFit: "cover",
+											objectFit: "contain",
 											width: "100%",
 											height: "300px",
 										}}
 									/>
 								)}
-								<div className="p-4 flex flex-col items-start gap-2">
+								<div className="p-4 flex flex-col items-center gap-2">
 									<h1 className="text-xl font-bold">
 										{capitalizeFirstLetter(item.setupName ?? "")}
 									</h1>

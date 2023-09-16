@@ -1,10 +1,7 @@
 import { internalMutation, mutation, query } from "./_generated/server";
-import ConvexError from "convex/values";
 import { v } from "convex/values";
 import { internal } from "./_generated/api";
 import { Id } from "./_generated/dataModel";
-
-
 
 export const generateRoomSetup = mutation({
     args: {
@@ -28,7 +25,6 @@ export const generateRoomSetup = mutation({
         });
 
         return newPrompt;
-
     },
 });
 
@@ -49,27 +45,15 @@ export const updateRoomSetup = internalMutation({
     },
 });
 
-export const generateUploadUrl = mutation(async (ctx) => {
-    return await ctx.storage.generateUploadUrl();
-});
-
-export const sendImage = mutation({
-    args: { storageId: v.string() },
-    handler: async (ctx, args) => {
-        await ctx.db.insert("improvedRooms", {
-            image: args.storageId,
-        });
-    },
-});
-
-
 export const getRoomSetups = query(async ({ auth, db }) => {
     const identity = await auth.getUserIdentity();
     if (identity === null) {
         return []
     }
     const rooms = await db.query("rooms").collect();
-    return rooms.sort((a: any, b: any) => b.createdAt - a.createdAt);
+    return rooms.sort((a, b) => {
+        return b._creationTime - a._creationTime;
+    })
 });
 
 export const getRoomSetup = query(async ({ auth, db }, { roomId }: { roomId: Id<"rooms"> }) => {
@@ -81,3 +65,4 @@ export const getRoomSetup = query(async ({ auth, db }, { roomId }: { roomId: Id<
     return db.get(roomId);
 }
 );
+
