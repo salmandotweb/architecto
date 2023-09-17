@@ -23,13 +23,13 @@ export default function CollectionPage() {
 	const router = useRouter();
 
 	return (
-		<div className="flex items-center gap-6 justify-center w-[90%] flex-wrap pt-[40px] pb-[20px]">
+		<div className="flex items-center gap-6 justify-center w-[100%] flex-wrap pt-[40px] pb-[20px] lg:w-[90%]">
 			{getCollection ? (
 				getCollection?.map((item, index) => {
 					return (
 						item.result && (
 							<div
-								className="flex flex-col gap-2 min-w-[32%] bg-white rounded-md overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:scale-105 transition-all cursor-pointer"
+								className="flex flex-col gap-2 min-w-[80%] bg-white rounded-md overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:scale-105 transition-all cursor-pointer lg:min-w-[32%]"
 								key={index}
 								onClick={() => {
 									router.push(`/room-setup/${item._id}`);

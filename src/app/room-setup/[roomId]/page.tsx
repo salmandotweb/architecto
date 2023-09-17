@@ -13,7 +13,7 @@ export default function Page({ params }: { params: { roomId: string } }) {
 	});
 
 	return getRoomSetup?.result ? (
-		<div className="flex flex-col gap-6 mx-auto items-center justify-start w-[80%] mt-10 pb-4">
+		<div className="flex flex-col gap-6 mx-auto items-center justify-start w-[100%] mt-10 pb-4 lg:w-[80%]">
 			<div className="flex items-end justify-between gap-2 w-full">
 				<div className="flex items-start gap-2 flex-col">
 					<h1 className="text-2xl font-bold">{getRoomSetup?.setupName}</h1>

@@ -35,7 +35,7 @@ const sidebarLinks = [
 
 const Sidebar = () => {
 	return (
-		<div className="flex flex-col items-start justify-start min-h-screen min-w-[300px] border-r">
+		<div className="hidden flex-col items-start justify-start min-h-screen min-w-[300px] border-r lg:flex">
 			<div className="flex items-start justify-start p-6 border-b w-full">
 				<h1 className="text-2xl font-bold">Architecto</h1>
 			</div>

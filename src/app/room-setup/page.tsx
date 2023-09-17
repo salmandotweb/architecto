@@ -136,12 +136,12 @@ const Page = () => {
 	return (
 		<>
 			{step === 1 && (
-				<div className="flex flex-col items-center text-center gap-2 w-full">
+				<div className="flex flex-col items-center text-center gap-2 w-full mt-10 lg:mt-0">
 					<h1 className="text-4xl font-bold">Select Setup Type</h1>
 					<p className="text-sm text-gray-500">
 						Select the type of setup you want to create
 					</p>
-					<div className="flex items-center justify-center gap-6 w-full mt-4">
+					<div className="flex items-center justify-center gap-6 w-full mt-4 flex-wrap">
 						{roomTypes?.map((item) => {
 							return (
 								<div
@@ -180,7 +180,7 @@ const Page = () => {
 				</div>
 			)}
 			{step === 2 && (
-				<div className="flex flex-col gap-6 mx-auto items-center justify-start w-[60%]">
+				<div className="flex flex-col gap-6 mx-auto items-center justify-start w-[100%] lg:w-[60%]">
 					<div className="w-full flex justify-start items-center gap-4">
 						<Button
 							variant="ghost"
